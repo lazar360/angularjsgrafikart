@@ -5,29 +5,29 @@
 </head>
 <body ng-app>
 
-    <h1>01-les directives</h1>
+    <h1>Mini chat</h1>
 
-    <h2>ng-model</h2>
-
+    <h2>Filtrer la discussion</h2>
+    
     <label>Sélectionnez le filtre :</label>
+    
+    <input type="text" ng-model="query">
+
     <select ng-model="order">
         <option value="username">Organiser par nom</option>
         <option value="content">Organiser par contenu</option>
     </select>
 
-    <h2>ng-init et ng-repeat</h2>
+    <h2>Discussion</h2>
 
     <div ng-init="users=[{username:'Marc', content:'Salut les gens'}, {username:'Jean', content:'Je suis content'}, {username:'John', content:'First'}]">
-         <ul>
-            <li ng-repeat="user in users | orderBy: order">{{user | uppercase}}</li>
-        </ul> 
-        
-        <!-- {{user | uppercase}} -->
-        <!-- {{users | filter:'M'}} -->
-
+         <div ng-repeat="user in users | filter:{content:query} | orderBy: order">
+            <p>
+                <strong>{{user.username}}</strong><br>
+                {{user.content}}
+            </p>
+        </div>
     </div>
-
-    
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </body>
