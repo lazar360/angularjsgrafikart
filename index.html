@@ -9,13 +9,17 @@
 
     <h2>ng-model</h2>
 
-    <label>Entrer le filtre :</label><input type="text" ng-model="query"/><br>
+    <label>Sélectionnez le filtre :</label>
+    <select ng-model="order">
+        <option value="username">Organiser par nom</option>
+        <option value="content">Organiser par contenu</option>
+    </select>
 
     <h2>ng-init et ng-repeat</h2>
 
-    <div ng-init="users=['Marc', 'Jean', 'John']">
+    <div ng-init="users=[{username:'Marc', content:'Salut les gens'}, {username:'Jean', content:'Je suis content'}, {username:'John', content:'First'}]">
          <ul>
-            <li ng-repeat="user in users | filter:query">{{user | uppercase}}</li>
+            <li ng-repeat="user in users | orderBy: order">{{user | uppercase}}</li>
         </ul> 
         
         <!-- {{user | uppercase}} -->
