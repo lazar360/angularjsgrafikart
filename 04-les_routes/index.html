@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>02-ctrl et scope</title>
+    <title>04-les routes</title>
 </head>
-<body ng-app="myApp" ng-controller="CommentsCtrl">
+<body ng-app="myApp">
 
-    <h1>Mini chat</h1>
-
-    <h2>Filtrer la discussion</h2>
-    
-    <label>Sélectionnez le filtre :</label>
-    
-    <input type="text" ng-model="query">
-    <select ng-model="order">
-        <option value="username">Organiser par nom</option>
-        <option value="content">Organiser par contenu</option>
-    </select>
-
-    <h2>Discussion</h2>    
-        <div ng-repeat="comment in comments | 
-        filter:{content:query} | orderBy: order">
-            <p>
-                <strong>{{comment.username}}</strong><br>
-                {{comment.content}}
-            </p>
-        </div>
-
+    <div ng-view></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
 
     <script>
-        var app = angular.module("myApp",[]);
 
-    app.controller("CommentsCtrl", function ($scope) {
+       var app = angular.module("myApp", ['ngRoute']).config(['$routeProvider', function config($routeProvider) {
+                $routeProvider.
+                    when('/', {
+                        templateUrl: 'partials/home.html'
+                    }).
+                    when('/comments', {
+                        templateUrl: 'partials/comments.html',
+                            controller: 'CommentsCtrl'
+                    }).
+                    otherwise({redirectTo : '/'});
+            }
+            ]);
+
+        app.controller("CommentsCtrl", function ($scope) {
             $scope.comments = [
                 {
                     "username": "Lawrence",
