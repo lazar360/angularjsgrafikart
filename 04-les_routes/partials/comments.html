@@ -1,0 +1,24 @@
+<div ng-controller="CommentsCtrl">
+
+
+    <h1>Mini chat</h1>
+
+    <h2>Filtrer la discussion</h2>
+
+    <label>Sélectionnez le filtre :</label>
+
+    <input type="text" ng-model="query">
+    <select ng-model="order">
+        <option value="username">Organiser par nom</option>
+        <option value="content">Organiser par contenu</option>
+    </select>
+
+    <h2>Discussion</h2>
+    <div ng-repeat="comment in comments | 
+        filter:{content:query} | orderBy: order">
+        <p>
+            <strong>{{comment.username}}</strong><br>
+            {{comment.content}}
+        </p>
+    </div>
+</div>
