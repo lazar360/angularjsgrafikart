@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+    <title>POC ng-pattern email</title>
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script> 
+      
+    <style>
+        .red {
+            color:red
+        }
+        .green {
+            color:green
+        }
+    </style>
+</head>
+  
+<body>
+    <script type="text/javascript">
+        var app = angular.module('MyApp', [])
+        app.controller('MyController', function ($scope) {
+        });
+    </script>
+    <div ng-app="MyApp" ng-controller="MyController">
+        <form name="MyForm" ng-submit="MyForm.$valid" novalidate>
+        <table border="0" cellpadding="0" cellspacing="5">
+            <tr>
+                <td>
+                    Email:
+                </td>
+                <td>
+                    <input type="text" ng-model="EmailAddress" name="Email" required ng-pattern="/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/" />
+                </td>
+                <td>
+                    <span class="error" ng-show="MyForm.Email.$error.required">*Required</span> <span
+                        class="error" ng-show="MyForm.Email.$error.pattern">*Invalid Email Address</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number:
+                </td>
+                <td>
+
+                    <!--(?=^[0-9]+(?:\.|,[0-9]+)?$)(?=^((?:[1-9][0-9]*)(?:\.[0-9]+)?)$) Exemple ',' mais pas de zero -->
+                    <input type="text" ng-model="Number" name="Number" required ng-pattern="/(?=^[0-9]+(?:\.|,[0-9]+)?$)(?=^((?:[1-9][0-9]*)(?:\.[0-9]+)?)$)/" />
+                </td>
+                <td>
+                    <span class="error" ng-show="MyForm.Number.$error.required">*Required</span> <span
+                        class="error" ng-show="MyForm.Number.$error.pattern">*Invalid Number</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="submit" ng-disabled="MyForm.$invalid">Submit</button>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+   
+</body>
+  
+</html>                    
